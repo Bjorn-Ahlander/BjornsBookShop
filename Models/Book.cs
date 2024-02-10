@@ -11,6 +11,7 @@ namespace BjornsBookShop.Models
         public string? Author { get; set; } 
         public string? Genre { get; set; } 
         public int? Price { get; set; }
+        public string? PicturePath { get; set; }
 
     }
 }

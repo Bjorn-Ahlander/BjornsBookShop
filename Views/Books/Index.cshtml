@@ -24,6 +24,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Price)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PicturePath)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -43,6 +46,10 @@
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
             <td>
+                    <img src="@Url.Content(item.PicturePath)" height="80" width="60">
+
+            </td>
+            <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
@@ -51,3 +58,5 @@
 }
     </tbody>
 </table>
+
+
