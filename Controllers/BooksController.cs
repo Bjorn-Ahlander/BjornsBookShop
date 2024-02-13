@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BjornsBookShop.Data;
 using BjornsBookShop.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BjornsBookShop.Controllers
 {
+    //[Authorize]
     public class BooksController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -28,6 +30,7 @@ namespace BjornsBookShop.Controllers
         }
 
         // GET: Books/Details/5
+        [Authorize(Roles = "Administrators")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Books == null)
@@ -46,6 +49,7 @@ namespace BjornsBookShop.Controllers
         }
 
         // GET: Books/Create
+        [Authorize(Roles = "Administrators")]
         public IActionResult Create()
         {
             return View();
@@ -56,6 +60,7 @@ namespace BjornsBookShop.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrators")]
         public async Task<IActionResult> Create([Bind("Id,Title,Author,Genre,Price,PicturePath")] Book book)
         {
             if (ModelState.IsValid)
@@ -68,6 +73,7 @@ namespace BjornsBookShop.Controllers
         }
 
         // GET: Books/Edit/5
+        [Authorize(Roles = "Administrators")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Books == null)
@@ -88,6 +94,7 @@ namespace BjornsBookShop.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrators")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Author,Genre,Price,PicturePath")] Book book)
         {
             if (id != book.Id)
@@ -119,6 +126,7 @@ namespace BjornsBookShop.Controllers
         }
 
         // GET: Books/Delete/5
+        [Authorize(Roles = "Administrators, Owners")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Books == null)
@@ -139,6 +147,7 @@ namespace BjornsBookShop.Controllers
         // POST: Books/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrators, Owners")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.Books == null)
