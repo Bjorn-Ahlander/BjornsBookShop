@@ -60,10 +60,25 @@
 				<a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
 				</p>
             }
+                    @if (User.IsInRole("Users"))
+                    {
+                        <p>
+                            <a asp-controller="Books" asp-action="Edit2"
+                                asp-route-id="@item.Id"> Add2Cart
+                            </a>
+                        </p>
+                    }
             </td>
         </tr>
 }
     </tbody>
 </table>
+
+<!-- Exempel på hur man visar ViewBag.Message i vyn -->
+@if (ViewBag.Message != null)
+{
+    <div>@ViewBag.Message</div>
+}
+
 
 

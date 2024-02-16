@@ -125,6 +125,62 @@ namespace BjornsBookShop.Controllers
             return View(book);
         }
 
+        // GET: Books/Edit2/5
+        [Authorize(Roles = "Users")]
+        public async Task<IActionResult> Edit2(int? id)
+        {
+            if (id == null || _context.Books == null)
+            {
+                return NotFound();
+            }
+
+            var book = await _context.Books.FindAsync(id);
+            if (book == null)
+            {
+                return NotFound();
+            }
+            return View(book);
+        }
+
+        // POST: Books/Edit2/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Users")]
+        public async Task<IActionResult> Edit2(int id, [Bind("Id,Title,Author,Genre,Price,PicturePath")] Transaction transaction)
+        {
+            if (id != transaction.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                //try
+                //{
+                    _context.Add(transaction);
+                    await _context.SaveChangesAsync();
+                //}
+                //catch (DbUpdateConcurrencyException)
+                //{
+                //    if (!BookExists(book.Id))
+                //    {
+                //        return NotFound();
+                //    }
+                //    else
+                //    {
+                //        throw;
+                //    }
+                //}
+                //TempData["msg"] = "<script>alert('Your order inserted successfully');</script>";
+                return RedirectToAction("Index", "Transactions");
+            }
+            //ViewBag.Message = "Detta är ett meddelande till användaren.";
+            //await Task.Delay(4000);
+            return View(transaction);
+        }
+
         // GET: Books/Delete/5
         [Authorize(Roles = "Administrators, Owners")]
         public async Task<IActionResult> Delete(int? id)

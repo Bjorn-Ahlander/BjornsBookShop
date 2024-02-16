@@ -13,6 +13,7 @@ namespace BjornsBookShop.Data
         public DbSet<Book> Books { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
         public DbSet<Customer> Customers { get; set; }
-        //public DbSet<List<Book>> books { get;}
+        //public DbSet<TransactionItem> TransactionItems { get; set; }
+        //public DbSet<List<Book> books { get;}
     }
 }
